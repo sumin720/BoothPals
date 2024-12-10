@@ -1,7 +1,11 @@
-<<h1>Directory</h1>
+<h1>Directory</h1>
 
 <%= search_form_for @q, url: users_path, method: :get, html: { class: "mb-3" } do |f| %>
   <div class="row g-2">
+    <div class="col-md-3">
+      <%= f.label :email_cont, "Email contains", class: "form-label" %>
+      <%= f.text_field :email_cont, class: "form-control" %>
+    </div>
     <div class="col-md-3">
       <%= f.label :location_cont, "Location contains", class: "form-label" %>
       <%= f.text_field :location_cont, class: "form-control" %>
@@ -14,9 +18,9 @@
       <%= f.label :concentrations_cont, "Concentration contains", class: "form-label" %>
       <%= f.text_field :concentrations_cont, class: "form-control" %>
     </div>
-    <div class="col-md-3 align-self-end">
-      <%= f.submit "Search", class: "btn btn-primary" %>
-    </div>
+  </div>
+  <div class="mt-3">
+    <%= f.submit "Search", class: "btn btn-primary" %>
   </div>
 <% end %>
 
@@ -25,7 +29,7 @@
     <tr>
       <th>Email</th>
       <th>Location</th>
-      <th>Program</th>
+      <th>Program Type</th>
       <th>Concentrations</th>
       <th>Actions</th>
     </tr>
@@ -46,4 +50,3 @@
     <% end %>
   </tbody>
 </table>
-

@@ -84,4 +84,14 @@ class User < ApplicationRecord
 
   has_many :pal_requests_as_mentee, class_name: "PalRequest", foreign_key: "mentee_id"
   has_many :mentors, through: :pal_requests_as_mentee, source: :mentor
+
+  # Ransack: Define searchable attributes
+  def self.ransackable_attributes(auth_object = nil)
+    %w[email location program_type concentrations created_at updated_at]
+  end
+
+  # Optional: Define searchable associations if needed
+  def self.ransackable_associations(auth_object = nil)
+    []
+  end
 end
