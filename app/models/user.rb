@@ -20,32 +20,30 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
-
-  # Allowed concentrations in a constant
-  CONCENTRATIONS = [
-    "Accounting",
-    "Analytic Finance",
-    "Behavioral Science",
-    "Business Analytics",
-    "Econometrics and Statistics",
-    "Economics"
-    "Entrepreneurship",
-    "Finance",
-    "General Management",
-    "Healthcare",
-    "International Business",
-    "Marketing Management",
-    "Operations Management",
-    "Strategic Management",
-          ]
-        
-  validates :state, presence: true, on: :update
-  validates :city, presence: true, on: :update
-  validates :concentration, inclusion: { in: CONCENTRATIONS }, allow_blank: true
+# Devise modules...
+devise :database_authenticatable, :registerable,
+:recoverable, :rememberable, :validatable
+ 
+# Concentrations array:
+    CONCENTRATIONS = [
+      "Accounting",
+      "Analytic Finance",
+      "Behavioral Science",
+      "Business Analytics",
+      "Econometrics and Statistics",
+      "Economics",
+      "Entrepreneurship",
+      "Finance",
+      "General Management",
+      "Healthcare",
+      "International Business",
+      "Marketing Management",
+      "Operations Management",
+      "Strategic Management",
+    ]
+  
+    validates :state, presence: true, on: :update
+    validates :city, presence: true, on: :update
+    validates :concentration, inclusion: { in: CONCENTRATIONS }, allow_blank: true
   end
-        
-end
+  
