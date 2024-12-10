@@ -1,0 +1,44 @@
+<h1>Your Pal Requests</h1>
+
+<h2>Requests You Sent (As Mentee)</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Mentor Email</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @pal_requests_as_mentee.each do |r| %>
+      <tr>
+        <td><%= r.mentor.email %></td>
+        <td><%= r.status %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2>Requests You Received (As Mentor)</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Mentee Email</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @pal_requests_as_mentor.each do |r| %>
+      <tr>
+        <td><%= r.mentee.email %></td>
+        <td><%= r.status %></td>
+        <td>
+          <% if r.status == 'pending' %>
+            <%= button_to 'Accept', pal_request_path(r, status: 'accepted'), method: :patch %>
+            <%= button_to 'Decline', pal_request_path(r, status: 'declined'), method: :patch %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

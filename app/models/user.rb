@@ -18,32 +18,38 @@
 #
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
-#
+
 class User < ApplicationRecord
-# Devise modules...
-devise :database_authenticatable, :registerable,
-:recoverable, :rememberable, :validatable
- 
-# Concentrations array:
-    CONCENTRATIONS = [
-      "Accounting",
-      "Analytic Finance",
-      "Behavioral Science",
-      "Business Analytics",
-      "Econometrics and Statistics",
-      "Economics",
-      "Entrepreneurship",
-      "Finance",
-      "General Management",
-      "Healthcare",
-      "International Business",
-      "Marketing Management",
-      "Operations Management",
-      "Strategic Management",
-    ]
-  
-    validates :state, presence: true, on: :update
-    validates :city, presence: true, on: :update
-    validates :concentration, inclusion: { in: CONCENTRATIONS }, allow_blank: true
-  end
-  
+  # Devise modules
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+
+  CONCENTRATIONS = [
+    "Accounting",
+    "Analytic Finance",
+    "Behavioral Science",
+    "Business Analytics",
+    "Econometrics and Statistics",
+    "Economics",
+    "Entrepreneurship",
+    "Finance",
+    "General Management",
+    "Healthcare",
+    "International Business",
+    "Marketing Management",
+    "Operations Management",
+    "Strategic Management",
+  ]
+
+  validates :state, presence: true, on: :update
+  validates :city, presence: true, on: :update
+  validates :concentration, inclusion: { in: CONCENTRATIONS }, allow_blank: true
+
+  # Pal requests as mentor
+  has_many :pal_requests_as_mentor, class_name: "PalRequest", foreign_key: "mentor_id"
+  has_many :mentees, through: :pal_requests_as_mentor, source: :mentee
+
+  # Pal requests as mentee
+  has_many :pal_requests_as_mentee, class_name: "PalRequest", foreign_key: "mentee_id"
+  has_many :mentors, through: :pal_requests_as_mentee, source: :mentor
+end
