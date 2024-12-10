@@ -1,0 +1,43 @@
+<h1>Directory</h1>
+<p>Search for other Booth Pals by state, city, or concentration.</p>
+
+<%= form_tag users_path, method: :get do %>
+  <div>
+    <%= label_tag :state %>
+    <%= text_field_tag :state, params[:state] %>
+  </div>
+  <div>
+    <%= label_tag :city %>
+    <%= text_field_tag :city, params[:city] %>
+  </div>
+  <div>
+    <%= label_tag :concentration %>
+    <%= select_tag :concentration, options_for_select(User::CONCENTRATIONS, params[:concentration]), include_blank: true %>
+  </div>
+  <%= submit_tag "Search" %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>State</th>
+      <th>City</th>
+      <th>Concentration</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |u| %>
+      <tr>
+        <td><%= u.email %></td>
+        <td><%= u.state %></td>
+        <td><%= u.city %></td>
+        <td><%= u.concentration %></td>
+        <td>
+          <%= button_to "Request Pal", pal_requests_path(mentor_id: u.id), method: :post %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'users/index'
   get 'profiles/edit'
   get 'profiles/update'
   get 'pages/home'
@@ -12,5 +13,6 @@ Rails.application.routes.draw do
    root "pages#home"
 
    resource :profile, only: [:edit, :update]
-  
+   resources :users, only: [:index]
+
 end
