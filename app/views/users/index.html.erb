@@ -1,43 +1,49 @@
-<h1>Directory</h1>
-<p>Search for other Booth Pals by state, city, or concentration.</p>
+<<h1>Directory</h1>
 
-<%= form_tag users_path, method: :get do %>
-  <div>
-    <%= label_tag :state %>
-    <%= text_field_tag :state, params[:state] %>
+<%= search_form_for @q, url: users_path, method: :get, html: { class: "mb-3" } do |f| %>
+  <div class="row g-2">
+    <div class="col-md-3">
+      <%= f.label :location_cont, "Location contains", class: "form-label" %>
+      <%= f.text_field :location_cont, class: "form-control" %>
+    </div>
+    <div class="col-md-3">
+      <%= f.label :program_type_eq, "Program Type", class: "form-label" %>
+      <%= f.select :program_type_eq, User::PROGRAM_TYPES, include_blank: true, class: "form-select" %>
+    </div>
+    <div class="col-md-3">
+      <%= f.label :concentrations_cont, "Concentration contains", class: "form-label" %>
+      <%= f.text_field :concentrations_cont, class: "form-control" %>
+    </div>
+    <div class="col-md-3 align-self-end">
+      <%= f.submit "Search", class: "btn btn-primary" %>
+    </div>
   </div>
-  <div>
-    <%= label_tag :city %>
-    <%= text_field_tag :city, params[:city] %>
-  </div>
-  <div>
-    <%= label_tag :concentration %>
-    <%= select_tag :concentration, options_for_select(User::CONCENTRATIONS, params[:concentration]), include_blank: true %>
-  </div>
-  <%= submit_tag "Search" %>
 <% end %>
 
-<table>
+<table class="table mt-3">
   <thead>
     <tr>
       <th>Email</th>
-      <th>State</th>
-      <th>City</th>
-      <th>Concentration</th>
-      <th>Action</th>
+      <th>Location</th>
+      <th>Program</th>
+      <th>Concentrations</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     <% @users.each do |u| %>
       <tr>
         <td><%= u.email %></td>
-        <td><%= u.state %></td>
-        <td><%= u.city %></td>
-        <td><%= u.concentration %></td>
+        <td><%= u.location %></td>
+        <td><%= u.program_type %></td>
+        <td><%= u.concentrations.join(", ") %></td>
         <td>
-          <%= button_to "Request Pal", pal_requests_path(mentor_id: u.id), method: :post %>
+          <% if u.id != current_user.id %>
+            <%= button_to "Request Pal", pal_requests_path(mentor_id: u.id), method: :post, class: "btn btn-secondary" %>
+          <% end %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+

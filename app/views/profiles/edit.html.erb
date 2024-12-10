@@ -1,17 +1,26 @@
 <h1>Edit Your Profile</h1>
 
-<%= form_for(@user) do |f| %>
-  <div>
-    <%= f.label :state %>
-    <%= f.text_field :state %>
+<%= form_for(@user, url: profile_path, method: :patch) do |f| %>
+  <div class="mb-3">
+    <%= f.label :location %>
+    <%= f.text_field :location, class: "form-control" %>
   </div>
-  <div>
-    <%= f.label :city %>
-    <%= f.text_field :city %>
+
+  <div class="mb-3">
+    <%= f.label :program_type %>
+    <%= f.select :program_type, User::PROGRAM_TYPES, {prompt: "Select your program type"}, class: "form-select" %>
   </div>
-  <div>
-    <%= f.label :concentration %>
-    <%= f.select :concentration, User::CONCENTRATIONS, prompt: "Select your concentration" %>
+
+  <div class="mb-3">
+    <label>Concentrations</label><br>
+    <% User::CONCENTRATIONS.each do |conc| %>
+      <div class="form-check">
+        <%= check_box_tag "user[concentrations][]", conc, @user.concentrations.include?(conc), class: "form-check-input", id: "conc_#{conc}" %>
+        <%= label_tag "conc_#{conc}", conc, class: "form-check-label" %>
+      </div>
+    <% end %>
   </div>
-  <%= f.submit "Update Profile" %>
+
+  <%= f.submit "Update Profile", class: "btn btn-primary" %>
 <% end %>
+

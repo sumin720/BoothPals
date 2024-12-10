@@ -88,6 +88,8 @@ Rails.application.configure do
   # Allow POST authenticity on Codespaces in dev
   config.action_controller.forgery_protection_origin_check = false
 
-
+config.action_mailer.delivery_method = :letter_opener
+config.action_mailer.perform_deliveries = true
+config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
 end

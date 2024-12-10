@@ -1,2 +1,16 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<h1>Welcome to BoothPals!</h1>
+
+<% if user_signed_in? %>
+  <p>
+    Logged in as <%= current_user.email %>.
+    <%= link_to "Edit Profile", edit_profile_path, class: "btn btn-secondary" %>
+    <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-danger" %>
+  </p>
+<% else %>
+  <p>
+    <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary" %> 
+    or 
+    <%= link_to "Log In", new_user_session_path, class: "btn btn-light" %>
+  </p>
+<% end %>
+

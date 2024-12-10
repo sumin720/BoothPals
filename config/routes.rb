@@ -1,23 +1,19 @@
 Rails.application.routes.draw do
-  get 'pal_requests/index'
-  get 'pal_requests/update'
-  get 'pal_requests/create'
-  get 'users/index'
-  get 'profiles/edit'
-  get 'profiles/update'
-  get 'pages/home'
+  # Devise routes for User model
   devise_for :users
 
-  # This is a blank app! Pick your first screen, build out the RCAV, and go from there. E.g.:
+  # Root route to pages#home
+  root "pages#home"
 
-  # get "/your_first_screen" => "pages#first"
+  # Profile: edit/update current user’s profile
+  resource :profile, only: [:edit, :update]
 
-   # root route
-   root "pages#home"
+  # Directory listing of other users (for searching and requesting pals)
+  resources :users, only: [:index]
 
-   resource :profile, only: [:edit, :update]
-   resources :users, only: [:index]
-   resources :pal_requests, only: [:index, :create, :update]
-
-
+  # Pal requests for mentorship/pal connections
+  resources :pal_requests, only: [:index, :create, :update]
 end
+
+
+  

@@ -1,0 +1,11 @@
+$booth-maroon: #800000; // Use the official Booth color if known
+
+.navbar-dark.bg-maroon {
+  background-color: $booth-maroon !important;
+}
+
+body {
+  font-family: 'Your Preferred Booth Font', sans-serif;
+}
+
+/* Add any additional custom styles here */

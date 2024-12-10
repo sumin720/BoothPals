@@ -110,3 +110,10 @@ group :test do
   gem "rspec-html-matchers"
   gem "webmock"
 end
+# Gemfile
+gem 'letter_opener', group: :development
+gem 'bootstrap', '~> 5.0.2'
+gem 'sassc-rails'
+group :development do
+  gem 'letter_opener'
+end

@@ -1,10 +1,10 @@
 <h1>Your Pal Requests</h1>
 
-<h2>Requests You Sent (As Mentee)</h2>
-<table>
+<h2>Requests You Sent (As Requester)</h2>
+<table class="table">
   <thead>
     <tr>
-      <th>Mentor Email</th>
+      <th>Pal Email</th>
       <th>Status</th>
     </tr>
   </thead>
@@ -18,11 +18,11 @@
   </tbody>
 </table>
 
-<h2>Requests You Received (As Mentor)</h2>
-<table>
+<h2>Requests You Received (As Requested Pal)</h2>
+<table class="table">
   <thead>
     <tr>
-      <th>Mentee Email</th>
+      <th>Requester Email</th>
       <th>Status</th>
       <th>Action</th>
     </tr>
@@ -34,11 +34,12 @@
         <td><%= r.status %></td>
         <td>
           <% if r.status == 'pending' %>
-            <%= button_to 'Accept', pal_request_path(r, status: 'accepted'), method: :patch %>
-            <%= button_to 'Decline', pal_request_path(r, status: 'declined'), method: :patch %>
+            <%= button_to 'Accept', pal_request_path(r, status: 'accepted'), method: :patch, class: "btn btn-success" %>
+            <%= button_to 'Decline', pal_request_path(r, status: 'declined'), method: :patch, class: "btn btn-danger" %>
           <% end %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+

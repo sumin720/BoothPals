@@ -1,4 +1,6 @@
 class ProfilesController < ApplicationController
+  before_action :authenticate_user!
+
   def edit
     @user = current_user
   end
@@ -15,6 +17,7 @@ class ProfilesController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:state, :city, :concentration)
+    # Allow multiple concentrations and new fields
+    params.require(:user).permit(:location, :program_type, concentrations: [])
   end
 end
